@@ -12,14 +12,26 @@ dotenv.config();
 const app = express();
 
 // cors
+const allowedOrigins = [
+  process.env.FRONTEND_DASH_URL,
+  process.env.FRONTEND_CLIENT_URL,
+];
+
 app.use(
   cors({
-    origin: [process.env.FRONTEND_DASH_URL, process.env.FRONTEND_CLIENT_URL],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('❌ Not allowed by CORS'));
+      }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, 
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
   })
 );
+
 
 // API Docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
