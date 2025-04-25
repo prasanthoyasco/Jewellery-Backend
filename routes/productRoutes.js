@@ -25,6 +25,9 @@ const router = express.Router();
  *         shortdiscription:
  *           type: string
  *           description: A short description of the product
+ *         productid:
+ *           type: string
+ *           description: A product ID or SKU of the product
  *         image:
  *           type: string
  *           nullable: true
@@ -110,6 +113,7 @@ router.get('/', getProducts);
  *               - name
  *               - karat
  *               - shortdiscription
+ *               - productid
  *               - weight
  *               - makingCostPercent
  *               - wastagePercent
@@ -121,6 +125,8 @@ router.get('/', getProducts);
  *                 type: string
  *                 enum: [24k, 22k, 18k]
  *               shortdiscription:
+ *                 type: string
+ *               productid:
  *                 type: string
  *               weight:
  *                 type: number
@@ -195,6 +201,8 @@ router.get('/:id', getProductById);
  *                 type: string
  *                 enum: [24k, 22k, 18k]
  *               shortdiscription:
+ *                 type: string
+ *               productid:
  *                 type: string
  *               weight:
  *                 type: number

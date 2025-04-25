@@ -30,7 +30,7 @@ export const addProduct = async (req, res, next) => {
         return res.status(500).json({ message: "Image upload failed", error });
       }
     }
-    const { name, karat, shortdiscription, weight, makingCostPercent, wastagePercent } = req.body;
+    const { name, karat, shortdiscription, productid, weight, makingCostPercent, wastagePercent } = req.body;
 
     const goldRate = await GoldRate.findOne({ karat });
     if (!goldRate || !goldRate.ratePerGram) {
@@ -56,6 +56,7 @@ export const addProduct = async (req, res, next) => {
       name,
       karat,
       shortdiscription,
+      productid,
       image,
       weight: parsedWeight,
       makingCostPercent: parsedMaking,
@@ -170,7 +171,7 @@ export const deleteProduct = async (req, res, next) => {
 export const updateProductById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { name, karat, shortdiscription, weight, makingCostPercent, wastagePercent } = req.body;
+    const { name, karat, shortdiscription, productid, weight, makingCostPercent, wastagePercent } = req.body;
     let image = null;
 
     const product = await Product.findById(id);
@@ -201,6 +202,7 @@ export const updateProductById = async (req, res, next) => {
       name,
       karat,
       shortdiscription,
+      productid,
       weight: parsedWeight,
       makingCostPercent: parsedMaking,
       wastagePercent: parsedWastage,
